@@ -1,0 +1,23 @@
+# PowerShell
+*.log
+*.tmp
+
+# Local data outputs
+reports/output/*
+data/*.db
+
+# Keep placeholder files
+!reports/output/.gitkeep
+
+# Secrets / local auth
+*.secret
+*.key
+.env
+local.settings.json
+
+# VS Code
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store
