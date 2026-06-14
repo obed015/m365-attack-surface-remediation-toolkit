@@ -1,6 +1,18 @@
 {
-    "Remediation":  "Disabled",
-    "TenantName":  null,
-    "ConnectedAt":  "2026-06-14T20:14:52",
-    "Mode":  "ReadOnly"
+    "AuthType":  0,
+    "TenantName":  "ad-lab-m365",
+    "TenantId":  "89e93570-00fa-466a-ac54-e078f4ec37e8",
+    "Account":  "ObedOwusu@ObedTechHub.onmicrosoft.com",
+    "Scopes":  [
+                   "Directory.Read.All",
+                   "Group.Read.All",
+                   "openid",
+                   "Organization.Read.All",
+                   "profile",
+                   "User.Read",
+                   "email"
+               ],
+    "ConnectedAt":  "2026-06-14T20:52:51",
+    "Mode":  "ReadOnly",
+    "Remediation":  "Disabled"
 }
