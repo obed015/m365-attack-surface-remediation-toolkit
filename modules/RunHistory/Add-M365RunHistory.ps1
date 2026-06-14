@@ -10,17 +10,27 @@ function Add-M365RunHistory {
         New-Item -Path ".\data" -ItemType Directory | Out-Null
     }
 
-    if (-not (Test-Path $HistoryPath)) {
-        @() | ConvertTo-Json -Depth 20 -AsArray | Set-Content -Path $HistoryPath
-    }
+    $ExistingHistory = @()
 
-    $ExistingHistoryRaw = Get-Content $HistoryPath -Raw
+    if (Test-Path $HistoryPath) {
+        $ExistingHistoryRaw = Get-Content $HistoryPath -Raw
 
-    if ([string]::IsNullOrWhiteSpace($ExistingHistoryRaw)) {
-        $ExistingHistory = @()
-    }
-    else {
-        $ExistingHistory = @($ExistingHistoryRaw | ConvertFrom-Json)
+        if (-not [string]::IsNullOrWhiteSpace($ExistingHistoryRaw)) {
+            $ParsedHistory = $ExistingHistoryRaw | ConvertFrom-Json
+
+            foreach ($Item in @($ParsedHistory)) {
+                if ($Item.runId) {
+                    $ExistingHistory += $Item
+                }
+                elseif ($Item.value) {
+                    foreach ($NestedItem in @($Item.value)) {
+                        if ($NestedItem.runId) {
+                            $ExistingHistory += $NestedItem
+                        }
+                    }
+                }
+            }
+        }
     }
 
     $RunId = Get-Date -Format "yyyyMMdd-HHmmss"
@@ -42,11 +52,38 @@ function Add-M365RunHistory {
         identityExposurePoints = $AssessmentResult.summary.identityExposurePoints
     }
 
-    $UpdatedHistory = @($ExistingHistory) + $RunRecord
+    $CleanHistory = @()
+    $CleanHistory += $ExistingHistory
+    $CleanHistory += $RunRecord
 
-    $UpdatedHistory |
-        ConvertTo-Json -Depth 20 -AsArray |
-        Set-Content -Path $HistoryPath
+    $JsonItems = @()
+
+    foreach ($Run in $CleanHistory) {
+        if ($Run.runId) {
+            $CleanRun = [PSCustomObject]@{
+                runId                  = $Run.runId
+                tenantName             = $Run.tenantName
+                assessmentDate         = $Run.assessmentDate
+                overallScore           = $Run.overallScore
+                riskLevel              = $Run.riskLevel
+                totalFindings          = $Run.totalFindings
+                criticalFindings       = $Run.criticalFindings
+                highFindings           = $Run.highFindings
+                mediumFindings         = $Run.mediumFindings
+                lowFindings            = $Run.lowFindings
+                informationalFindings  = $Run.informationalFindings
+                totalExposurePoints    = $Run.totalExposurePoints
+                identityScore          = $Run.identityScore
+                identityExposurePoints = $Run.identityExposurePoints
+            }
+
+            $JsonItems += ($CleanRun | ConvertTo-Json -Depth 20)
+        }
+    }
+
+    $Json = "[`n" + ($JsonItems -join ",`n") + "`n]"
+
+    Set-Content -Path $HistoryPath -Value $Json
 
     Write-Host "Run history updated: $HistoryPath" -ForegroundColor Green
 

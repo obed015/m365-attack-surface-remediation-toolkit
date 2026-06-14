@@ -192,3 +192,47 @@ This phase supports the original project requirements:
 ### Status
 
 Phase 8 completed successfully. The toolkit now produces dashboard-ready data and stores assessment history.
+
+## Phase 6 — Before/After Comparison
+
+**Date completed:** 2026-06-14
+
+### Goal
+
+Add before/after comparison capability using run history and archived assessment snapshots.
+
+### Completed
+
+- Created `modules/Comparison`.
+- Added `Save-M365AssessmentSnapshot`.
+- Added `Compare-M365AssessmentRuns`.
+- Updated `Start-M365Assessment` to save assessment snapshots.
+- Added score comparison between the latest two runs.
+- Added finding-level comparison support using archived JSON snapshots.
+- Updated dashboard JSON to include comparison data.
+
+### Current Behaviour
+
+The toolkit can now compare:
+
+- Previous score
+- Current score
+- Score change
+- Previous risk level
+- Current risk level
+- Fixed findings
+- New findings
+- Still-open findings
+
+### Current Expected Result
+
+Because no remediation has been performed yet:
+
+Previous Score: 88
+Current Score: 88
+Improvement: 0
+Risk Level: High to High
+
+### Status
+
+Phase 6 completed successfully. The toolkit can now compare assessment runs and prepare before/after evidence for reporting.

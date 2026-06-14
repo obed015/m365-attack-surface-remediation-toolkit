@@ -2,11 +2,18 @@
 *.log
 *.tmp
 
-# Local data outputs
-reports/output/*
+# Live assessment output - do not commit real tenant data
+data/findings.json
+data/run-history.json
+data/dashboard.json
+data/tenant-cache.json
+data/snapshots/
+
+# Local databases
 data/*.db
 
-# Keep placeholder files
+# Reports output - keep folder only
+reports/output/*
 !reports/output/.gitkeep
 
 # Secrets / local auth

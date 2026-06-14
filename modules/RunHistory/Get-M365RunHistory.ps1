@@ -18,9 +18,24 @@ function Get-M365RunHistory {
         return
     }
 
-    $History = @($HistoryRaw | ConvertFrom-Json)
+    $ParsedHistory = $HistoryRaw | ConvertFrom-Json
 
-    $History |
+    $CleanHistory = @()
+
+    foreach ($Item in $ParsedHistory) {
+        if ($Item.runId) {
+            $CleanHistory += $Item
+        }
+        elseif ($Item.value) {
+            foreach ($NestedItem in $Item.value) {
+                if ($NestedItem.runId) {
+                    $CleanHistory += $NestedItem
+                }
+            }
+        }
+    }
+
+    $CleanHistory |
         Sort-Object assessmentDate -Descending |
         Select-Object -First $Last |
         Select-Object runId, tenantName, assessmentDate, overallScore, riskLevel, totalFindings, criticalFindings, highFindings, mediumFindings, lowFindings, informationalFindings, totalExposurePoints

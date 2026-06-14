@@ -10,11 +10,47 @@ function Export-M365DashboardData {
 
     $Assessment = Get-Content $FindingsPath -Raw | ConvertFrom-Json
 
+    $RunHistory = @()
+
     if (Test-Path $HistoryPath) {
-        $RunHistory = @(Get-Content $HistoryPath -Raw | ConvertFrom-Json)
+        $HistoryRaw = Get-Content $HistoryPath -Raw
+
+        if (-not [string]::IsNullOrWhiteSpace($HistoryRaw)) {
+            $ParsedHistory = $HistoryRaw | ConvertFrom-Json
+
+            foreach ($Item in $ParsedHistory) {
+                if ($Item.runId) {
+                    $RunHistory += $Item
+                }
+                elseif ($Item.value) {
+                    foreach ($NestedItem in $Item.value) {
+                        if ($NestedItem.runId) {
+                            $RunHistory += $NestedItem
+                        }
+                    }
+                }
+            }
+        }
     }
-    else {
-        $RunHistory = @()
+
+    $Comparison = $null
+
+    if ($RunHistory.Count -ge 2) {
+        $SortedHistory = $RunHistory | Sort-Object assessmentDate -Descending
+        $CurrentRun = $SortedHistory[0]
+        $PreviousRun = $SortedHistory[1]
+
+        $Comparison = [PSCustomObject]@{
+            previousRunId     = $PreviousRun.runId
+            currentRunId      = $CurrentRun.runId
+            previousDate      = $PreviousRun.assessmentDate
+            currentDate       = $CurrentRun.assessmentDate
+            previousScore     = $PreviousRun.overallScore
+            currentScore      = $CurrentRun.overallScore
+            scoreChange       = $CurrentRun.overallScore - $PreviousRun.overallScore
+            previousRiskLevel = $PreviousRun.riskLevel
+            currentRiskLevel  = $CurrentRun.riskLevel
+        }
     }
 
     $TopFindings = @(
@@ -27,6 +63,7 @@ function Export-M365DashboardData {
         generatedAt = (Get-Date).ToString("s")
         tenantName  = $Assessment.tenantName
         summary     = $Assessment.summary
+        comparison  = $Comparison
         topFindings = $TopFindings
         runHistory  = $RunHistory
     }

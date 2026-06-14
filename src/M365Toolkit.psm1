@@ -13,6 +13,9 @@
 . $PSScriptRoot\..\modules\RunHistory\Add-M365RunHistory.ps1
 . $PSScriptRoot\..\modules\RunHistory\Get-M365RunHistory.ps1
 
+. $PSScriptRoot\..\modules\Comparison\Save-M365AssessmentSnapshot.ps1
+. $PSScriptRoot\..\modules\Comparison\Compare-M365AssessmentRuns.ps1
+
 Export-ModuleMember -Function Connect-M365Toolkit
 Export-ModuleMember -Function Get-M365ToolkitContext
 Export-ModuleMember -Function Start-M365Assessment
@@ -23,3 +26,5 @@ Export-ModuleMember -Function Test-DisabledUsersStillLicensed
 Export-ModuleMember -Function Get-M365RiskScore
 Export-ModuleMember -Function Add-M365RunHistory
 Export-ModuleMember -Function Get-M365RunHistory
+Export-ModuleMember -Function Save-M365AssessmentSnapshot
+Export-ModuleMember -Function Compare-M365AssessmentRuns

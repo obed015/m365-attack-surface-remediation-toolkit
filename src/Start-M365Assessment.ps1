@@ -2,6 +2,7 @@
 . .\modules\Identity\Test-DisabledUsersStillLicensed.ps1
 . .\modules\Scoring\Get-M365RiskScore.ps1
 . .\modules\RunHistory\Add-M365RunHistory.ps1
+. .\modules\Comparison\Save-M365AssessmentSnapshot.ps1
 
 function Start-M365Assessment {
     param(
@@ -30,12 +31,14 @@ function Start-M365Assessment {
     }
 
     $AssessmentResult |
-        ConvertTo-Json -Depth 25 |
+        ConvertTo-Json -Depth 30 |
         Set-Content -Path ".\data\findings.json"
 
+    $SnapshotPath = Save-M365AssessmentSnapshot -AssessmentResult $AssessmentResult
     $RunRecord = Add-M365RunHistory -AssessmentResult $AssessmentResult
 
     Write-Host "Assessment complete. Findings saved to .\data\findings.json" -ForegroundColor Green
+    Write-Host "Snapshot: $SnapshotPath" -ForegroundColor Green
     Write-Host "Run ID: $($RunRecord.runId)" -ForegroundColor Green
     Write-Host "Overall Score: $($Summary.overallScore)/100" -ForegroundColor Yellow
     Write-Host "Risk Level: $($Summary.riskLevel)" -ForegroundColor Yellow
