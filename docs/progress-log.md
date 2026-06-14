@@ -69,3 +69,83 @@ Get-M365TenantUsers
 ### Status
 
 Phase 5 completed successfully. The toolkit now connects to Microsoft Graph in read-only mode.
+
+## Phase 6 — Identity Assessment Module
+
+**Date completed:** 2026-06-14
+
+### Goal
+
+Build the first real Microsoft 365 identity finding using Microsoft Graph tenant data.
+
+### Completed
+
+- Updated tenant user collection to include assigned license data.
+- Created `Test-DisabledUsersStillLicensed`.
+- Added finding `ID-007`.
+- Integrated the identity finding into `Start-M365Assessment`.
+- Improved Markdown report output to include affected objects and evidence.
+- Updated findings catalog.
+
+### Finding Added
+
+`ID-007 — Disabled users still licensed`
+
+### Security Model
+
+Assessment only. No remediation actions are performed in this phase.
+
+### Test Commands
+
+```powershell
+Import-Module .\src\M365Toolkit.psm1 -Force
+Connect-M365Toolkit -Mode ReadOnly -TenantName "ad-lab-m365"
+Test-DisabledUsersStillLicensed
+Start-M365Assessment -TenantName "ad-lab-m365"
+Export-M365Report -Format Markdown
+```
+
+### Status
+
+Phase 6 completed successfully. The toolkit now performs its first real Microsoft 365 identity assessment.
+
+## Phase 7 — Scoring Engine and Risk Summary
+
+**Date completed:** 2026-06-14
+
+### Goal
+
+Add a scoring engine that calculates Microsoft 365 tenant exposure based on finding severity.
+
+### Completed
+
+- Created `modules/Scoring`.
+- Created `Get-M365RiskScore`.
+- Added severity weights:
+  - Critical = 20
+  - High = 12
+  - Medium = 7
+  - Low = 3
+  - Informational = 0
+- Integrated scoring into `Start-M365Assessment`.
+- Added summary output to `data/findings.json`.
+- Improved Markdown report with executive summary, risk summary, and category scores.
+
+### Current Score Logic
+
+Overall Score = 100 - Total Exposure Points
+
+The final score is capped between 0 and 100.
+
+### Current Expected Result
+
+With the current findings:
+
+- ID-000 = Informational = 0 points
+- ID-007 = High = 12 points
+
+Expected score: 88/100
+
+### Status
+
+Phase 7 completed successfully. The toolkit now has a dashboard-ready risk scoring model.
