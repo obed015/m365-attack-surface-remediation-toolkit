@@ -43,3 +43,17 @@ The toolkit currently generates:
 ## Next Phase
 
 Phase 5 will add Microsoft Graph authentication in read-only mode.
+
+### Phase 8 Added
+
+- Run history tracking
+- Dashboard-ready JSON export
+- Recent assessment history
+- Future UI-ready `dashboard.json`
+
+### New Commands
+
+```powershell
+Get-M365RunHistory
+Export-M365DashboardData
+```

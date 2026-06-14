@@ -54,6 +54,30 @@ function Export-M365Report {
         $Lines += "| Low | $($Assessment.summary.lowFindings) |"
         $Lines += "| Informational | $($Assessment.summary.informationalFindings) |"
         $Lines += ""
+
+        $HistoryPath = ".\data\run-history.json"
+
+        if (Test-Path $HistoryPath) {
+            $History = @(Get-Content $HistoryPath -Raw | ConvertFrom-Json)
+
+            if ($History.Count -gt 0) {
+                $LatestHistory = $History |
+                    Sort-Object assessmentDate -Descending |
+                    Select-Object -First 5
+
+                $Lines += "## Recent Run History"
+                $Lines += ""
+                $Lines += "| Date | Score | Risk | Critical | High | Medium | Low | Info |"
+                $Lines += "|---|---:|---|---:|---:|---:|---:|---:|"
+
+                foreach ($Run in $LatestHistory) {
+                    $Lines += "| $($Run.assessmentDate) | $($Run.overallScore)/100 | $($Run.riskLevel) | $($Run.criticalFindings) | $($Run.highFindings) | $($Run.mediumFindings) | $($Run.lowFindings) | $($Run.informationalFindings) |"
+                }
+
+                $Lines += ""
+            }
+        }
+
         $Lines += "## Category Scores"
         $Lines += ""
         $Lines += "| Category | Score | Exposure Points |"

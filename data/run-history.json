@@ -1,0 +1,16 @@
+{
+    "runId":  "20260614-214658",
+    "tenantName":  "ad-lab-m365",
+    "assessmentDate":  "2026-06-14T21:46:58",
+    "overallScore":  88,
+    "riskLevel":  "High",
+    "totalFindings":  2,
+    "criticalFindings":  0,
+    "highFindings":  1,
+    "mediumFindings":  0,
+    "lowFindings":  0,
+    "informationalFindings":  1,
+    "totalExposurePoints":  12,
+    "identityScore":  88,
+    "identityExposurePoints":  12
+}

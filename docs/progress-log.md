@@ -149,3 +149,46 @@ Expected score: 88/100
 ### Status
 
 Phase 7 completed successfully. The toolkit now has a dashboard-ready risk scoring model.
+
+## Phase 8 — Dashboard-ready JSON and Run History
+
+**Date completed:** 2026-06-14
+
+### Goal
+
+Add run history and dashboard-ready JSON output to support the future UI dashboard and before/after comparison.
+
+### Completed
+
+- Created `modules/RunHistory`.
+- Added `Add-M365RunHistory`.
+- Added `Get-M365RunHistory`.
+- Integrated run history into `Start-M365Assessment`.
+- Added `Export-M365DashboardData`.
+- Created `data/run-history.json`.
+- Created `data/dashboard.json`.
+- Prepared JSON output for future dashboard UI.
+
+### Current Dashboard Data
+
+The toolkit now exports:
+
+- Tenant name
+- Assessment summary
+- Overall score
+- Risk level
+- Top findings
+- Run history
+
+### Alignment With Original Project
+
+This phase supports the original project requirements:
+
+- Risk dashboard
+- Run history
+- Before/after evidence
+- Local JSON results
+
+### Status
+
+Phase 8 completed successfully. The toolkit now produces dashboard-ready data and stores assessment history.

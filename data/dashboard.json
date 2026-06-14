@@ -1,0 +1,70 @@
+{
+    "generatedAt":  "2026-06-14T21:53:27",
+    "tenantName":  "ad-lab-m365",
+    "summary":  {
+                    "overallScore":  88,
+                    "riskLevel":  "High",
+                    "totalExposurePoints":  12,
+                    "criticalFindings":  0,
+                    "highFindings":  1,
+                    "mediumFindings":  0,
+                    "lowFindings":  0,
+                    "informationalFindings":  1,
+                    "identityScore":  88,
+                    "identityExposurePoints":  12,
+                    "scoringModel":  {
+                                         "Low":  3,
+                                         "Critical":  20,
+                                         "Medium":  7,
+                                         "Informational":  0,
+                                         "High":  12
+                                     }
+                },
+    "topFindings":  [
+                        {
+                            "id":  "ID-007",
+                            "category":  "Identity",
+                            "severity":  "High",
+                            "title":  "Disabled users still licensed",
+                            "affectedObjects":  [
+                                                    {
+                                                        "displayName":  "Comfort Osei",
+                                                        "userPrincipalName":  "cosei@ObedTechHub.onmicrosoft.com",
+                                                        "accountEnabled":  false,
+                                                        "licenseCount":  1
+                                                    },
+                                                    {
+                                                        "displayName":  "Eunice Owusu",
+                                                        "userPrincipalName":  "eowusu@ObedTechHub.onmicrosoft.com",
+                                                        "accountEnabled":  false,
+                                                        "licenseCount":  1
+                                                    },
+                                                    {
+                                                        "displayName":  "Thomas Marfo",
+                                                        "userPrincipalName":  "tmarfo@ObedTechHub.onmicrosoft.com",
+                                                        "accountEnabled":  false,
+                                                        "licenseCount":  1
+                                                    }
+                                                ],
+                            "recommendation":  "Review disabled accounts and remove unnecessary Microsoft 365 licenses after confirming business and retention requirements."
+                        }
+                    ],
+    "runHistory":  [
+                       {
+                           "runId":  "20260614-214658",
+                           "tenantName":  "ad-lab-m365",
+                           "assessmentDate":  "2026-06-14T21:46:58",
+                           "overallScore":  88,
+                           "riskLevel":  "High",
+                           "totalFindings":  2,
+                           "criticalFindings":  0,
+                           "highFindings":  1,
+                           "mediumFindings":  0,
+                           "lowFindings":  0,
+                           "informationalFindings":  1,
+                           "totalExposurePoints":  12,
+                           "identityScore":  88,
+                           "identityExposurePoints":  12
+                       }
+                   ]
+}
