@@ -1,5 +1,9 @@
 . .\modules\Identity\Test-IdentityFindings.ps1
 . .\modules\Identity\Test-DisabledUsersStillLicensed.ps1
+. .\modules\Identity\Test-TooManyGlobalAdmins.ps1
+. .\modules\Identity\Test-GuestUsersPresent.ps1
+. .\modules\Identity\Test-StaleGuestUsers.ps1
+
 . .\modules\Scoring\Get-M365RiskScore.ps1
 . .\modules\RunHistory\Add-M365RunHistory.ps1
 . .\modules\Comparison\Save-M365AssessmentSnapshot.ps1
@@ -14,11 +18,11 @@ function Start-M365Assessment {
 
     $AllFindings = @()
 
-    $IdentityEngineCheck = Test-IdentityFindings -TenantName $TenantName
-    $AllFindings += $IdentityEngineCheck
-
-    $DisabledLicensedFinding = Test-DisabledUsersStillLicensed
-    $AllFindings += $DisabledLicensedFinding
+    $AllFindings += Test-IdentityFindings -TenantName $TenantName
+    $AllFindings += Test-DisabledUsersStillLicensed
+    $AllFindings += Test-TooManyGlobalAdmins
+    $AllFindings += Test-GuestUsersPresent
+    $AllFindings += Test-StaleGuestUsers
 
     $Summary = Get-M365RiskScore -Findings $AllFindings
 
