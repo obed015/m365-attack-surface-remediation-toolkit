@@ -8,11 +8,12 @@
                    "Group.Read.All",
                    "openid",
                    "Organization.Read.All",
+                   "Policy.Read.All",
                    "profile",
                    "User.Read",
                    "email"
                ],
-    "ConnectedAt":  "2026-06-14T20:52:51",
+    "ConnectedAt":  "2026-06-15T22:20:05",
     "Mode":  "ReadOnly",
     "Remediation":  "Disabled"
 }

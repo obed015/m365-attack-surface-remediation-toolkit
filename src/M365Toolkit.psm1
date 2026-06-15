@@ -11,6 +11,9 @@
 . $PSScriptRoot\..\modules\Identity\Test-GuestUsersPresent.ps1
 . $PSScriptRoot\..\modules\Identity\Test-StaleGuestUsers.ps1
 
+. $PSScriptRoot\..\modules\ConditionalAccess\Test-CAAdminMFAPolicy.ps1
+. $PSScriptRoot\..\modules\ConditionalAccess\Test-CALegacyAuthBlocked.ps1
+
 . $PSScriptRoot\..\modules\Scoring\Get-M365RiskScore.ps1
 
 . $PSScriptRoot\..\modules\RunHistory\Add-M365RunHistory.ps1
@@ -30,6 +33,9 @@ Export-ModuleMember -Function Test-DisabledUsersStillLicensed
 Export-ModuleMember -Function Test-TooManyGlobalAdmins
 Export-ModuleMember -Function Test-GuestUsersPresent
 Export-ModuleMember -Function Test-StaleGuestUsers
+
+Export-ModuleMember -Function Test-CAAdminMFAPolicy
+Export-ModuleMember -Function Test-CALegacyAuthBlocked
 
 Export-ModuleMember -Function Get-M365RiskScore
 

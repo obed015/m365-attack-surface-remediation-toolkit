@@ -4,6 +4,9 @@
 . .\modules\Identity\Test-GuestUsersPresent.ps1
 . .\modules\Identity\Test-StaleGuestUsers.ps1
 
+. .\modules\ConditionalAccess\Test-CAAdminMFAPolicy.ps1
+. .\modules\ConditionalAccess\Test-CALegacyAuthBlocked.ps1
+
 . .\modules\Scoring\Get-M365RiskScore.ps1
 . .\modules\RunHistory\Add-M365RunHistory.ps1
 . .\modules\Comparison\Save-M365AssessmentSnapshot.ps1
@@ -23,6 +26,9 @@ function Start-M365Assessment {
     $AllFindings += Test-TooManyGlobalAdmins
     $AllFindings += Test-GuestUsersPresent
     $AllFindings += Test-StaleGuestUsers
+
+    $AllFindings += Test-CAAdminMFAPolicy
+    $AllFindings += Test-CALegacyAuthBlocked
 
     $Summary = Get-M365RiskScore -Findings $AllFindings
 

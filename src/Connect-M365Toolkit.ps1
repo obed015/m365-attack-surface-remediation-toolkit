@@ -15,7 +15,8 @@ function Connect-M365Toolkit {
             "User.Read",
             "Directory.Read.All",
             "Group.Read.All",
-            "Organization.Read.All"
+            "Organization.Read.All",
+            "Policy.Read.All"
         )
 
         $RemediationStatus = "Disabled"
