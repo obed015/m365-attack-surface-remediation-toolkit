@@ -236,3 +236,25 @@ Risk Level: High to High
 ### Status
 
 Phase 6 completed successfully. The toolkit can now compare assessment runs and prepare before/after evidence for reporting.
+
+## Phase 10 — Identity Assessment Expansion
+
+**Date completed:** 2026-06-14
+
+### Goal
+
+Expand the identity assessment module with privileged role and guest identity checks.
+
+### Completed
+
+- Added `ID-002 Too many Global Administrators`.
+- Added `ID-005 Guest users present`.
+- Added `ID-006 Stale guest users`.
+- Updated module loader.
+- Updated assessment runner.
+- Updated findings catalog.
+- Confirmed dashboard and report output support expanded findings.
+
+### Status
+
+Phase 10 completed successfully. The toolkit now performs broader identity exposure assessment across privileged roles, guest users, stale guests, and disabled licensed accounts.
